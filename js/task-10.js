@@ -6,12 +6,15 @@ const inputEl = document.querySelector('[type=number]');
 boxesEl.style.display = 'flex';
 boxesEl.style.flexWrap = 'wrap';
 
-createBtnEl.addEventListener('click', handler);
+createBtnEl.addEventListener('click', onCreateBoxes);
 
-destroyBtnEl.addEventListener('click', clearItems);
+destroyBtnEl.addEventListener('click', onClearItems);
 
-function handler() {
-  createBoxes(inputEl.value);
+function onCreateBoxes() {
+  const amount = inputEl.value;
+  const collectionsBoxes = createBoxes(amount);
+  inputEl.value = '';
+  boxesEl.append(...collectionsBoxes);
 }
 
 function createBoxes(amount) {
@@ -26,10 +29,10 @@ function createBoxes(amount) {
     size += 10;
     collections.push(item);
   }
-  boxesEl.append(...collections);
+  return collections;
 }
 
-function clearItems() {
+function onClearItems() {
   boxesEl.innerHTML = '';
   inputEl.value = '';
 }
